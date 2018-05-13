@@ -67,13 +67,18 @@ public class RetirementController implements Initializable {
 		// decmial
 		hmTextFieldRegEx.put(txtYearsToWork, "\\d*?");
 		hmTextFieldRegEx.put(txtAnnualReturnWorking, "\\d*(\\.\\d*)?");
+		hmTextFieldRegEx.put(txtYearsRetired, "\\d*?");
+		hmTextFieldRegEx.put(txtAnnualReturnRetired, "\\d*(\\.\\d*)?");
+		hmTextFieldRegEx.put(txtRequiredIncome, "\\d*(\\.\\d*)?");
+		hmTextFieldRegEx.put(txtMonthlySSI, "\\d*(\\.\\d*)?");
 
 		// Check out these pages (how to validate controls):
 		// https://stackoverflow.com/questions/30935279/javafx-input-validation-textfield
 		// https://stackoverflow.com/questions/40485521/javafx-textfield-validation-decimal-value?rq=1
 		// https://stackoverflow.com/questions/8381374/how-to-implement-a-numberfield-in-javafx-2-0
 		// There are some examples on how to validate / check format
-
+		
+		/*
 		Iterator it = hmTextFieldRegEx.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
@@ -95,11 +100,12 @@ public class RetirementController implements Initializable {
 				}
 			});
 		}
+		*/
 
 		//
 		// TODO: Validate Working Annual Return %, accept only numbers and decimals
 		// TODO: Validate Years retired, accepted only decimals
-		// TODO: Validate Retired Annual Return %, accept only numbers and deciamls
+		// TODO: Validate Retired Annual Return %, accept only numbers and decimals
 		// TODO: Validate Required Income, accept only decimals
 		// TODO: Validate Monthly SSI, accept only decimals
 	}
@@ -109,12 +115,18 @@ public class RetirementController implements Initializable {
 		System.out.println("Clear pressed");
 
 		// disable read-only controls
+		txtSaveEachMonth.clear();
 		txtSaveEachMonth.setDisable(true);
+		txtWhatYouNeedToSave.clear();
 		txtWhatYouNeedToSave.setDisable(true);
-
-		// Clear, enable txtYearsToWork
-		txtYearsToWork.clear();
-		txtYearsToWork.setDisable(false);
+		
+		Iterator it = hmTextFieldRegEx.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			TextField txtField = (TextField) pair.getKey();
+			txtField.clear();
+			txtField.setDisable(false);
+		}
 
 		// TODO: Clear, enable the rest of the input controls. Hint! You already have a
 		// HashMap of all the input controls....!!!!
