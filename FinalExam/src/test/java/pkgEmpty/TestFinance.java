@@ -29,15 +29,32 @@ public class TestFinance {
 		
 		//	Accounting rules- PV returns a negative number if you pass in a positive PMT amount.  Take the absolute value
 		
-		//	I want to copmare a double with a double... Doubles are not precice... I have to give a rounding factor.
+		//	I want to copmare a double with a double... Doubles are not precise... I have to give a rounding factor.
 		//	Note the third argument.  That says only compare the double values to the hundredth place.
 		assertEquals(1454485.55,Math.abs(PV),0.01);
+		
+		Retirement testie = new Retirement(iYearsToWork, dAnnualReturnWorking, iYearsRetired, dAnnualReturnRetired,
+			dRequiredIncome, dMonthlySSI);
+
+		assertEquals(1454485.55, testie.TotalAmountToSave(),0.01);
+		
 		
 	}
 
 	@Test
 	public void TestPMT() {
+		int iYearsToWork = 40;
+		double dAnnualReturnWorking = 0.07;
+		int iYearsRetired = 20;
+		double dAnnualReturnRetired = 0.02;
+		double dRequiredIncome = 10000;
+		double dMonthlySSI = 2642;
 
-		//TODO: Test PMT.  Make sure PMT works as expected.
+		double PMT = Math.abs(Retirement.PMT(dAnnualReturnWorking / 12, iYearsToWork * 12, 0, 1454485.55, false));
+		
+		Retirement testie = new Retirement(iYearsToWork, dAnnualReturnWorking, iYearsRetired, dAnnualReturnRetired,
+				dRequiredIncome, dMonthlySSI);
+		
+		assertEquals(554.13,testie.MonthlySavings(),0.01);
 	}
 }

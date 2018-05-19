@@ -23,16 +23,16 @@ public class Retirement {
 	}
 
 	public double MonthlySavings() {
-//bumshart
+		
 		//TODO: Calculate AmountToSave
-		double pmt = 0; // <-- this should be fixed to calculate the real pmt
+		double pmt = Math.abs(PMT(dAnnualReturnWorking / 12, iYearsToWork * 12, 0, TotalAmountToSave(), false)); // <-- this should be fixed to calculate the real pmt
 		return pmt;
 	}
 
 	public double TotalAmountToSave() {
 		
 		//TODO: Calculate the Total Amount Requried to save
-		double pv = 0;
+		double pv = Math.abs(PV(dAnnualReturnRetired /12, iYearsRetired *12, dRequiredIncome - dMonthlySSI, 0, false));
 		//	Hint: Here's how to round a number: pv = Math.round(pv * 100.0) / 100.0;
 		return pv;
 	}

@@ -69,8 +69,8 @@ public class RetirementController implements Initializable {
 		hmTextFieldRegEx.put(txtAnnualReturnWorking, "\\d*(\\.\\d*)?");
 		hmTextFieldRegEx.put(txtYearsRetired, "\\d*?");
 		hmTextFieldRegEx.put(txtAnnualReturnRetired, "\\d*(\\.\\d*)?");
-		hmTextFieldRegEx.put(txtRequiredIncome, "\\d*(\\.\\d*)?");
-		hmTextFieldRegEx.put(txtMonthlySSI, "\\d*(\\.\\d*)?");
+		hmTextFieldRegEx.put(txtRequiredIncome, "\\d*?");
+		hmTextFieldRegEx.put(txtMonthlySSI, "\\d*?");
 
 		// Check out these pages (how to validate controls):
 		// https://stackoverflow.com/questions/30935279/javafx-input-validation-textfield
@@ -134,12 +134,45 @@ public class RetirementController implements Initializable {
 
 	@FXML
 	public void btnCalculate() {
-
+		boolean allValid = true;
+		System.out.println("validating inputs");
+		Iterator it = hmTextFieldRegEx.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			TextField txtField = (TextField) pair.getKey();
+			String strRegEx = (String) pair.getValue();
+			if (!txtField.getText().matches(strRegEx)) {
+				txtField.setText("");
+				txtField.requestFocus();
+				allValid = false;
+			}
+		}
+		if (!allValid)
+			return;
+			
 		System.out.println("calculating");
 
-		txtSaveEachMonth.setDisable(false);
 		txtWhatYouNeedToSave.setDisable(false);
-
+		txtSaveEachMonth.setDisable(false);
+		Retirement retire;
+		try {
+			retire = new Retirement(
+					Integer.parseInt(txtYearsToWork.getText()),
+					Double.parseDouble(txtAnnualReturnWorking.getText()),
+					Integer.parseInt(txtYearsRetired.getText()),
+					Double.parseDouble(txtAnnualReturnRetired.getText()),
+					Double.parseDouble(txtRequiredIncome.getText()),
+					Double.parseDouble(txtMonthlySSI.getText())
+			);
+		} catch (NumberFormatException e) {
+			txtWhatYouNeedToSave.setDisable(true);
+			txtSaveEachMonth.setDisable(true);
+			return;
+		}
+		
+		txtWhatYouNeedToSave.setText(Double.toString(retire.TotalAmountToSave()));
+		txtSaveEachMonth.setText(Double.toString(retire.MonthlySavings()));
+		
 		// TODO: Calculate txtWhatYouNeedToSave value...
 		// TODO: Then calculate txtSaveEachMonth, using amount from txtWhatYouNeedToSave
 		// as input

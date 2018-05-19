@@ -10,9 +10,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?language javascript?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkgApp.controller.RetirementController">
-   <bottom>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="600.0" stylesheets="@RetirementStyle.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkgApp.controller.RetirementController">
+	<bottom>
       <HBox prefHeight="35.0" prefWidth="410.0" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="ErrorBox" alignment="CENTER" disable="true" editable="false" prefHeight="31.0" prefWidth="603.0" visible="false" />

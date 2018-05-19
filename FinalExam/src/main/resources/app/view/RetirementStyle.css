@@ -1,0 +1,10 @@
+.root {
+     -fx-background-color: "#CCEEFF";
+     -fx-font-family: "serif";
+     -fx-font-color: "#000000";
+     -fx-font-size: 16px;
+}
+
+.text-field {
+     -fx-font-family: "monospace";
+}
